@@ -1,0 +1,23 @@
+{
+  "name": "@hezedu/vue-form",
+  "version": "0.0.1",
+  "main": "index.js",
+  "keywords": [
+    "vue",
+    "form",
+    "validate"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hezedu/vue-form"
+  },
+  "author": {
+    "name": "hezedu"
+  },
+  "licenses": "MIT",
+  "email": "hezedu@hotmail.com",
+  "description": "Vue form, can be validate.",
+  "bugs": {
+    "url": "https://github.com/hezedu/vue-form/issues"
+  }
+}
