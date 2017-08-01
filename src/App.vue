@@ -78,9 +78,9 @@ VForm(:data='data', :validate='validate', :isInit='true')
 </template>
 
 <script>
-import VForm from './cmpt/VForm.vue';
-import VInput from './cmpt/VInput.vue';
-import VSubmit from './cmpt/VSubmit.vue';
+import VForm from './lib/VForm.vue';
+import VInput from './lib/VInput.vue';
+import VSubmit from './lib/VSubmit.vue';
 export default {
   components: {
     VForm,

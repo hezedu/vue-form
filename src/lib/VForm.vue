@@ -4,7 +4,7 @@ div
 </template>
 
 <script>
-import {getValidator} from '../lib/rules';
+import {getValidator} from './rules';
 
 export default {
   props: ['data', 'validate', 'isInit'],
