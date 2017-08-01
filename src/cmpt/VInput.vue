@@ -1,14 +1,3 @@
-<style>
-.dw-input-validate-success>:nth-child(1){
-  border-color: green;
-}
-.dw-input-validate-error>:nth-child(1){
-  border-color: red;
-}
-.dw-input-validate-init>:nth-child(1){
-  border-color: blue;
-}
-</style>
 <template lang="jade">
 div(:class= 'className')
   input(v-if='isNormalInput', v-bind="$props",:value='value', v-model='data[name]')

@@ -1,6 +1,3 @@
-<style>
-.dw-submit-disabled{color: #999}
-</style>
 <template lang="jade">
 button(:class="{'dw-submit-disabled': isDisabled}", @click='handleClick')
   slot
