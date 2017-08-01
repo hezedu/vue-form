@@ -1,60 +1,104 @@
-<template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://gitter.im/vuejs/vue" target="_blank">Gitter Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
-  </div>
+<style>
+label>span{color: red}
+.inline{display: inline-block;}
+</style>
+<template lang="jade">
+VForm(:data='data', :validate='validate', :isInit='true')
+  table
+    tr
+      td
+        label
+          span *
+          | 姓名(text):
+      td
+        VInput(name='name')
+    tr
+      td
+        label
+          span *
+          | 年龄(number):
+      td
+        VInput(name='age' type='number')
+    tr
+      td
+        label 性别(radio):
+      td(style='width: 200px;display:flex')
+
+        label
+          VInput(name='sex' class='inline' value='1' type='radio')
+          |男
+        label
+          VInput(name='sex' class='inline' value='2' type='radio')
+          |女
+    tr
+      td
+        label 描述(textarea):
+      td
+        VInput(name='textarea' class='haha' type='textarea')
+    tr
+      td
+        label 兴趣(checkbox):
+      td
+        label
+          VInput(name='interest' class='inline' value='1' type='checkbox')
+          |跑步
+        label
+          VInput(name='interest' class='inline' value='2' type='checkbox')
+          |骑车
+        label
+          VInput(name='interest' class='inline' value='3' type='checkbox')
+          |写代码
+    tr
+      td
+        label
+          span *
+          |职业(select):
+      td
+        VInput(name='job' class='haha' type='select')
+          option(value='') 请选择
+          option(value='1') UI
+          option(value='2') 前端
+          option(value='3') 后端
+  hr
+  VSubmit(:success = 'success')
+    |submit
+    template(scope="props" slot='process')
+      span {{props.successTotal}} / {{props.validateTotal}}
+  pre {{result}}
 </template>
 
 <script>
+import VForm from './cmpt/VForm.vue';
+import VInput from './cmpt/VInput.vue';
+import VSubmit from './cmpt/VSubmit.vue';
 export default {
-  name: 'app',
-  data () {
+  components: {
+    VForm,
+    VInput,
+    VSubmit
+  },
+  data(){
     return {
-      msg: 'Welcome to Your Vue.js App'
+      data: {
+        name: '',
+        age: '2',
+        textarea: '',
+        job: '2',
+        sex: '1',
+        interest: ['1', '2']
+      },
+      validate: {
+        name: 'notEmpty',
+        age: 'notEmpty',
+        job: 'notEmpty'
+      },
+      result: null
+    }
+  },
+  methods: {
+    success(data){
+      this.result = data;
     }
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
-</style>
