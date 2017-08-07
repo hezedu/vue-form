@@ -25,10 +25,15 @@ import {VForm, VInput, VSubmit, ruleExtend} from '@hezedu/vue-form';
 ### VInput props
 - `name`: String 必须。
 - `type`: String 默认`text`
-- `value`: String 只有当`type`为**checkbox**或**radio**时才需要填。
+- `value`: String 非必须。只有当`type`为**checkbox**或**radio**时才需要填。其它填了也没用。
+### VSubmit props
+`success` Function 必须。用户输入完成且全部验证都通过，点击触发的callback。<br>
+`success(data)` data为用户输入后的数据。
 
-##完整示例：
-```vue<style>
+**VInput**和**VSubmit**的父组件必须是**VForm**
+## 完整示例：
+```vue
+<style>
 label>span{color: red}
 .inline{display: inline-block;}
 .hezedu-submit-disabled{color: #999}
