@@ -1,4 +1,7 @@
 export {extend as ruleExtend} from './rules';
-export {VForm} from './VForm.vue';
-export {VInput} from './VInput.vue';
-export {VSubmit} from './VSubmit.vue';
+
+import VForm from './VForm.vue';
+import VInput from './VInput.vue';
+import VSubmit from './VSubmit.vue';
+
+export {VForm, VInput, VSubmit}

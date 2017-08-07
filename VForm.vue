@@ -4,16 +4,17 @@ div
 </template>
 
 <script>
-import {getValidator} from '../lib/rules';
+import {getValidator} from './rules';
 
 export default {
-  props: ['data', 'validate', 'isInit'],
+  props: ['data', 'validate'],
   data (){
-    const {data, validate, isInit} = this;
-    let len = 0;
-    let successTotal = 0;
+    const {data, validate} = this;
+    const isInit = true;
     const validateMap = {};
     const initErrors = {};
+    let len = 0;
+    let successTotal = 0;
 
     for(let i in validate){
       let fn = this.getValidatorByName(i);
