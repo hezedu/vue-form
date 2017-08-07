@@ -1,5 +1,5 @@
 <template lang="jade">
-button(:class="{'dw-submit-disabled': isDisabled}", @click='handleClick')
+button(:class="{'hezedu-submit-disabled': isDisabled}", @click='handleClick')
   slot
   slot(name='process', :successTotal="$parent.successTotal",  :validateTotal="$parent.validateTotal")
 </template>

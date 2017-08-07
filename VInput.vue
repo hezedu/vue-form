@@ -11,7 +11,7 @@ div(:class= 'className')
 
   select(v-else-if='type==="select"', v-bind="$props", v-model='data[name]')
     slot
-  div(style='color:red' v-if='validate' v-show='isShowError') {{validate.msg}}
+  div(v-if='validate' v-show='isShowError') {{validate.msg}}
 </template>
 
 <script>
@@ -41,7 +41,7 @@ export default {
     className(){
       let name = '';
       if(this.validate){
-        name = 'dw-input-validate-';
+        name = 'hezedu-input-validate-';
         if(this.validate.isInit){
           name += 'init';
         }else{
