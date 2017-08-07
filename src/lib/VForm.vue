@@ -4,7 +4,7 @@ div
 </template>
 
 <script>
-import {getValidator} from './rules';
+import {getValidator} from '../lib/rules';
 
 export default {
   props: ['data', 'validate', 'isInit'],
@@ -53,7 +53,6 @@ export default {
   methods: {
     showError(){
       for(let i in this.initErrors){
-        console.log(i)
         this.updateInputStatus(i, this.data[i]);
       }
     },
