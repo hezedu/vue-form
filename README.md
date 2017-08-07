@@ -10,15 +10,33 @@ jade , vue-loader
 `.vue` include: /node_modules/@hezedu/vue-form/
 # API
 ### Css className
-- `.hezedu-submit-disabled` 验证未完全能过时，提交按钮状态className.
-- `hezedu-input-validate-init` 验证初始化(一开始)，input状态className.
-- `hezedu-input-validate-success` 验证成功，input状态className.
-- `hezedu-input-validate-error` 验证失改，input状态className.
+- `.hezedu-submit-disabled` 验证未完全能过时，提交按钮.
+- `hezedu-input-validate-init` 验证初始化(一开始)，input.
+- `hezedu-input-validate-success` 验证成功，input.
+- `hezedu-input-validate-error` 验证失败，input.
 
-## Js
+## JS
 ```js
-import {VForm, VInput, VSubmit, ruleExtend} from '@hezedu/vue-form';
+import validatorExtends { VForm, VInput, VSubmit } from '@hezedu/vue-form';
 ```
+### validatorExtends(validators)
+验证器扩展。
+`validators` Object, key为validator的名字。值为validator。
+  - `validator` Function(value)，return 空或一个错误提示。
+    - value String，用户输放的值。
+```js
+ruleExtend({
+  number: function(v){
+    if(Number(v) === NaN){
+      return 'msg'
+    }else{
+      return;
+    }
+
+  }
+})
+```
+
 ### VForm props
 - `data`: Object 表单数据，该对象会改变属性，请使用数据的深拷贝。
 - `validate`: Object 需验证的配置。key改须跟data的key对应。
@@ -31,6 +49,8 @@ import {VForm, VInput, VSubmit, ruleExtend} from '@hezedu/vue-form';
 `success(data)` data为用户输入后的数据。
 
 **VInput**和**VSubmit**的父组件必须是**VForm**
+
+
 ## 完整示例：
 ```vue
 <style>
