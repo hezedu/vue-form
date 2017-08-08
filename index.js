@@ -1,4 +1,4 @@
-export {extend} from './rules';
+import {extend} from './rules';
 
 import VForm from './VForm.vue';
 import VInput from './VInput.vue';
