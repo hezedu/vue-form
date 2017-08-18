@@ -3,11 +3,11 @@ Vue表单单页面组件，能够验证，没有样式。
 
 ## Install
 `npm install @hezedu/vue-form`
-## Env
-### PreDependencies
-jade , vue-loader
-### Webpack config rules
-`.vue` include: /node_modules/@hezedu/vue-form/
+## 环境
+**peerDependencies**: `jade`, `vue-loader`.
+
+**Webpack Config** ：本项目是未经编译的原文件。所以配置rule时不要将本顶目exclude在外。
+
 # API
 ### Css className
 - `.hezedu-submit-disabled` 验证未完全能过时，提交按钮.
@@ -15,25 +15,19 @@ jade , vue-loader
 - `.hezedu-input-validate-success` 验证成功，input.
 - `.hezedu-input-validate-error` 验证失败，input.
 
-## JS
+### JS
 ```js
-import validatorExtend { VForm, VInput, VSubmit } from '@hezedu/vue-form';
+import validators { VForm, VInput, VSubmit } from '@hezedu/vue-form';
 ```
-### validatorExtend(validators)
-验证器扩展。
-`validators` Object, key为validator的名字。值为validator。
-  - `validator` Function(value)，return 空或一个错误提示。
-    - value String，用户输放的值。
+`validators` Object, 所有验证器(系统自带一个)。可自己扩展。
 ```js
-validatorExtend({
-  positiveInteger: function(v){
-    if(/\d+/.test(v)){
-      return '请输入正整数'
-    }else{
-      return;
-    }
+validators.positiveInteger = function(v){
+  if(/\d+/.test(v)){ //v 为用户输入的值。
+    return '请输入正整数' //错误
+  }else{
+    return; //正确
   }
-})
+}
 ```
 ## components
 ### VForm props
@@ -44,11 +38,10 @@ validatorExtend({
 - `type`: String 默认`text`
 - `value`: String 非必须。只有当`type`为**checkbox**或**radio**时才需要填。其它填了也没用。
 ### VSubmit props
-`success` Function 必须。用户输入完成且全部验证都通过，点击触发的callback。<br>
-`success(data)` data为用户输入后的数据。
+`success(data)` Function 必须。data<Object>为用户输入后的数据。用户输入完成且全部验证都通过，点击触发的callback。<br>
 
+### 注意
 **VInput**和**VSubmit**的父组件必须是**VForm**
-
 
 ## 完整示例：
 ```vue

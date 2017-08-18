@@ -16,6 +16,6 @@ export function getValidator(v){
   return rules[v];
 }
 
-export function extend(obj){
-  Object.assign(rules, obj);
-}
+// export function extend(obj){
+//   Object.assign(rules, obj);
+// }

@@ -1,12 +1,12 @@
 {
   "name": "@hezedu/vue-form",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
-  "preDependencies": {
+  "peerDependencies": {
     "jade": "^1.11.0",
     "vue-loader": "^12.1.0"
   },
