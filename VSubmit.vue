@@ -1,7 +1,8 @@
-<template lang="jade">
-button(:class="{'hezedu-submit-disabled': isDisabled}", @click='handleClick')
-  slot
-  slot(name='process', :successTotal="$parent.successTotal",  :validateTotal="$parent.validateTotal")
+<template>
+<button :class="{'hezedu-submit-disabled': isDisabled}" @click='handleClick'>
+  <slot />
+  <slot name='process' :successTotal="$parent.successTotal"  :validateTotal="$parent.validateTotal" />
+</button>
 </template>
 
 <script>
