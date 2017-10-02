@@ -13,7 +13,6 @@ export default {
     const isInit = true;
     const validateMap = {};
     const initErrors = {};
-    let len = 0;
     let successTotal = 0;
 
     for(let i in validate){
@@ -46,7 +45,6 @@ export default {
     return {
       validateTotal: Object.keys(validate).length,
       successTotal,
-      verifyLen: len,
       initErrors,
       validateMap
     }
@@ -80,21 +78,6 @@ export default {
           data.status = 'success';
         }
       }
-
-      // if(msg){
-      //   if(status !== 'error'){
-      //     data.status = 'error';
-      //     data.msg = msg;
-      //     if(status !== 'init'){
-      //       this.afterVerify(1);
-      //     }
-      //   }
-      // }else{
-      //   if(status !== 'success'){
-      //     data.status = 'success';
-      //     this.afterVerify(-1);
-      //   }
-      // }
     },
     getItemValidate(name){
       const data = this.validateMap[name]
@@ -102,12 +85,6 @@ export default {
     },
     getValidatorByName(name){
       return getValidator(this.validate[name])
-    },
-    afterVerify(num){
-      let {verifyLen} = this;
-      let len = verifyLen + num;
-      if(len < 0) return;
-      this.verifyLen = len;
     }
   }
 }
