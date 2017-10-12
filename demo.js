@@ -1,5 +1,10 @@
 
-
+function getValidator(v){
+  if(typeof(v) === 'function'){
+    return v;
+  }
+  return Validate.validators[v];
+}
 
 // opts : {data: {}, validations: {}}
 function Validate(opts){
@@ -10,16 +15,8 @@ function Validate(opts){
   return this;
 }
 
-function notEmpty(str){
-  if(/^\s*$/.test(str)){
-    return '该项不可为空'
-  }
-  return '';
-}
 // static
-Validate.validators = {
-  notEmpty: notEmpty
-};
+Validate.validators = {};
 
 Validate.addValidator = function(key, value){
   if(typeof key === 'object'){
@@ -29,19 +26,9 @@ Validate.addValidator = function(key, value){
   }
 }
 
-Validate._getValidator = function(v){
-  if(typeof(v) === 'function'){
-    return v;
-  }
-  return this.validators[v];
-}
 
-// prototype
-Validate.prototype._getValidatorByName = function(name){
-  if(!this.validations){
-    console.log('!this.validations', this)
-  }
-  return Validate._getValidator(this.validations[name]);
+Validate.prototype._getValidatorByName(){
+  return getValidator(this.validations[name]);
 }
 
 Validate.prototype._init = function(){
@@ -61,7 +48,7 @@ Validate.prototype._init = function(){
       if(msg){
         validate.status = 'error';
         validate.msg = msg;
-        if(validate.isInit){
+        if(isInit){
           initErrors[i] = true;
         }
         //len++;
@@ -88,14 +75,15 @@ Validate.prototype.showAllError = function() {
 }
 
 Validate.prototype.trigger = function(name, v){
-  let validator = this._getValidatorByName(name);
+  const {_getValidatorByName,  validateMap, initErrors} = this;
+  let validator = _getValidatorByName(name);
   let msg = validator(v);
-  const data = this.validateMap[name];
+  const data = validateMap[name];
   const status = data.status;
-  //console.log('msg', msg)
+
   if(data.isInit){
     data.isInit = false;
-    delete(this.initErrors[name]);
+    delete(initErrors[name]);
   }
   if(msg){
     if(status === 'success'){
@@ -107,29 +95,12 @@ Validate.prototype.trigger = function(name, v){
     if(status !== 'success'){
       this.successTotal ++;
       data.status = 'success';
-      delete(data.msg);
     }
   }
 
   this.onValidate({
     name,
     value: v,
-    status: data.status,
-    errormsg: msg,
-    validateTotal: this.validateTotal,
-    successTotal: this.successTotal
+    result: data
   })
 }
-
-var demo = new Validate({
-  data: {
-    a: ''
-  },
-  validations: {
-    a: 'notEmpty'
-  },
-  onValidate(data){
-    console.log('onValidate', data);
-  }
-})
-demo.trigger('a' , 'b');
