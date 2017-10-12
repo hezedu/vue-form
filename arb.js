@@ -1,38 +1,45 @@
-export function getValidator(v){
+
+function getValidator(v){
   if(typeof(v) === 'function'){
     return v;
   }
   return Validate.validators[v];
 }
 
-function noop(){}
-
-// opts : {data: {}, validation: {}}
+// opts : {data: {}, validations: {}}
 function Validate(opts){
   this.data = opts.data;
-  this.validation = opts.validation;
-  this.onValidate = opts.onValidate || noop;
-  this.init();
+  this.validations = opts.validations;
+  this.onValidate = opts.onValidate || function(){};
+  this._init();
   return this;
 }
 
+// static
 Validate.validators = {};
 
-Validate.prototype.getValidatorByName(){
-  return getValidator(this.validation[name]);
+Validate.addValidator = function(key, value){
+  if(typeof key === 'object'){
+    Object.assign(this.validators, key);
+  }else{
+    this.validators[key] = value;
+  }
 }
 
-Validate.prototype.init = function(){
-    const {data, validation} = this;
-    const validators = Object.keys(validation);
 
+Validate.prototype._getValidatorByName(){
+  return getValidator(this.validations[name]);
+}
 
+Validate.prototype._init = function(){
+    const {data, validations} = this;
+    const validators = Object.keys(validations);
     const validateMap = {};
     const initErrors = {};
     let successTotal = 0;
 
     validators.forEach( i => {
-      let fn = this.getValidatorByName(i);
+      let fn = this._getValidatorByName(i);
       let msg = fn(data[i]);
       const validate = {
         isInit : true
@@ -60,14 +67,16 @@ Validate.prototype.init = function(){
       validateMap
     });
 }
-Validate.prototype.showError = function() {
+
+Validate.prototype.showAllError = function() {
     for(let i in this.initErrors){
       this.update(i, this.data[i]);
     }
 }
+
 Validate.prototype.update = function(name, v){
-  const {getValidatorByName,  validateMap, initErrors} = this;
-  let validator = getValidatorByName(name);
+  const {_getValidatorByName,  validateMap, initErrors} = this;
+  let validator = _getValidatorByName(name);
   let msg = validator(v);
   const data = validateMap[name];
   const status = data.status;
